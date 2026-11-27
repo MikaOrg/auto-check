@@ -1,0 +1,296 @@
+/* =====================================================================
+   Auto Check – Gestaltung
+   Alle Farben stehen als Variablen ganz oben, darunter die Bausteine
+   in der Reihenfolge, in der sie in der App vorkommen.
+   ===================================================================== */
+
+/* ---------- Farben (hell) ---------- */
+:root {
+  --background: #f2f4f7;
+  --surface: #ffffff;
+  --surface-muted: #f6f7f9;
+  --text: #16202b;
+  --text-muted: #5d6b7a;
+  --border: #d6dce4;
+  --primary: #1f5fa8;
+  --on-primary: #ffffff;
+  --success: #1b8a4b;
+  --success-background: #e4f4eb;
+  --danger: #c62f2f;
+  --warning: #9a5a00;
+  --warning-background: #fff3dc;
+  --on-status-color: #ffffff;
+
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .07);
+  --page-padding: 20px;
+  color-scheme: light dark;
+}
+
+/* ---------- Farben (dunkel, folgt der iPad-Einstellung) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f141a;
+    --surface: #18202a;
+    --surface-muted: #202a36;
+    --text: #e8edf3;
+    --text-muted: #9aa8b7;
+    --border: #2f3b4a;
+    --primary: #4a8fe0;
+    --on-primary: #08121e;
+    --success: #3cc47a;
+    --success-background: #15302a;
+    --danger: #ff6b6b;
+    --warning: #f0b04a;
+    --warning-background: #3a2d15;
+    --on-status-color: #08121e;
+    --shadow: none;
+  }
+}
+
+/* ---------- Grundlagen ---------- */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font: 17px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  touch-action: manipulation; /* verhindert Zoomen durch Doppeltippen */
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-user-select: none; user-select: none; }
+h1 { font-size: 26px; line-height: 1.2; margin: 0 0 4px; }
+h2 { font-size: 20px; margin: 0; }
+p { margin: 0 0 12px; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+.subtitle { color: var(--text-muted); margin: 0 0 20px; }
+.muted-text { font-size: 14px; color: var(--text-muted); }
+.center { text-align: center; }
+.grow { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- Kopfzeile ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 60px;
+  padding: calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + var(--page-padding)) 10px calc(env(safe-area-inset-left) + var(--page-padding));
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; font-size: 19px; font-weight: 700; }
+.brand img { width: 30px; height: 30px; border-radius: 7px; }
+.brand span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topbar-right { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
+.topbar-user { font-size: 15px; color: var(--text-muted); }
+.pill-warning {
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  font-size: 14px; font-weight: 600;
+  background: var(--warning-background); color: var(--warning);
+}
+
+/* ---------- Seitenaufbau ---------- */
+main {
+  max-width: 880px; margin: 0 auto;
+  padding: 24px calc(env(safe-area-inset-right) + var(--page-padding)) calc(env(safe-area-inset-bottom) + 40px) calc(env(safe-area-inset-left) + var(--page-padding));
+}
+main.with-footer { padding-bottom: calc(env(safe-area-inset-bottom) + 120px); }
+.card {
+  padding: 24px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 16px; }
+.stack > * + * { margin-top: 16px; }
+.narrow { max-width: 480px; margin: 0 auto; }
+.button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.button-row.centered { justify-content: center; }
+.section-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin: 0 0 12px; }
+
+/* ---------- Hinweise ---------- */
+.notice { padding: 14px 16px; border-radius: 12px; font-weight: 500; background: var(--warning-background); color: var(--warning); }
+.notice-success { background: var(--success-background); color: var(--success); }
+.notice + * { margin-top: 16px; }
+
+/* ---------- Formulare ---------- */
+label { display: block; margin: 18px 0 6px; font-weight: 600; }
+select, input[type=text], input[type=password], textarea {
+  width: 100%; min-height: 52px; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface-muted);
+  font-size: 17px; /* ab 16px zoomt iOS beim Antippen nicht hinein */
+}
+select {
+  -webkit-appearance: none; appearance: none; padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23778899' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+textarea { min-height: 0; resize: vertical; line-height: 1.4; }
+.hint { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+.form-error { margin-top: 14px; font-weight: 600; color: var(--danger); }
+.form-error:empty { display: none; }
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 48px; padding: 0 18px; margin: 0;
+  border-radius: 12px; border: 1px solid var(--border);
+  background: var(--surface); font-size: 17px; font-weight: 600;
+}
+.button:active { transform: scale(.98); }
+.button[disabled] { opacity: .5; }
+.button-primary { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.button-danger { color: var(--danger); }
+.button-small { min-height: 40px; padding: 0 12px; font-size: 15px; }
+.button-large { min-height: 60px; padding: 0 28px; font-size: 19px; }
+.link-button {
+  display: block; min-height: 44px; padding: 0 12px; margin: 0 auto;
+  background: none; border: none; color: var(--text-muted); font-weight: 600;
+}
+.icon-button {
+  flex: none; width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface-muted); font-size: 16px;
+}
+
+/* ---------- PIN-Ziffernfeld ---------- */
+.pin-pad { margin-top: 24px; text-align: center; }
+.pin-label { font-weight: 600; }
+.pin-dots { display: flex; justify-content: center; gap: 14px; margin: 14px 0 6px; }
+.pin-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--text-muted); }
+.pin-dot.filled { background: var(--text); border-color: var(--text); }
+.pin-message { min-height: 24px; font-size: 15px; font-weight: 600; color: var(--danger); }
+.pin-keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+.pin-key {
+  height: 72px; border-radius: 16px; border: 1px solid var(--border);
+  background: var(--surface-muted); font-size: 28px; font-weight: 500;
+}
+.pin-key:active { background: var(--border); }
+.pin-key-delete { font-size: 24px; }
+.shake { animation: shake .35s; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* ---------- Checkliste ---------- */
+.info-bar { display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.info-bar b { font-size: 19px; }
+.info-label { display: block; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted); }
+.plate {
+  display: inline-block; padding: 0 8px; border: 2px solid var(--text); border-radius: 6px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 700; letter-spacing: .03em;
+}
+.checklist { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.check-item {
+  padding: 16px 18px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--border);
+  box-shadow: var(--shadow);
+  scroll-margin: 90px 0 110px; /* beim Hinscrollen nicht unter Kopf- oder Fußzeile verschwinden */
+}
+.check-item.ok { border-left-color: var(--success); }
+.check-item.bad { border-left-color: var(--danger); }
+.check-item.missing { border-color: var(--warning); border-left-color: var(--warning); background: var(--warning-background); }
+.check-item-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 16px; }
+.check-item-text { display: flex; flex: 1 1 260px; gap: 10px; font-size: 18px; font-weight: 500; }
+.item-number { min-width: 1.6em; color: var(--text-muted); }
+.choice-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice-button {
+  min-width: 150px; min-height: 56px; padding: 0 16px; border-radius: 12px;
+  border: 2px solid var(--border); background: var(--surface-muted); font-size: 17px; font-weight: 600;
+}
+.choice-button.choice-ok.selected { background: var(--success); border-color: var(--success); color: var(--on-status-color); }
+.choice-button.choice-bad.selected { background: var(--danger); border-color: var(--danger); color: var(--on-status-color); }
+.note-toggle {
+  min-height: 40px; margin-top: 8px; padding: 8px 0;
+  background: none; border: none; font-size: 15px; font-weight: 600; color: var(--primary);
+}
+.note-area textarea { margin-top: 4px; }
+.checklist-footer {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px calc(env(safe-area-inset-right) + var(--page-padding)) calc(env(safe-area-inset-bottom) + 12px) calc(env(safe-area-inset-left) + var(--page-padding));
+  background: var(--surface); border-top: 1px solid var(--border);
+}
+.progress { display: flex; flex: 1; align-items: center; gap: 12px; min-width: 0; font-size: 15px; color: var(--text-muted); }
+.progress-bar { flex: 1; max-width: 240px; height: 8px; overflow: hidden; border-radius: 99px; background: var(--surface-muted); border: 1px solid var(--border); }
+.progress-fill { display: block; width: 0; height: 100%; background: var(--success); transition: width .2s; }
+
+/* ---------- Abschlussseite ---------- */
+.result-list { margin: 16px 0 0; padding: 0; list-style: none; text-align: left; }
+.result-list li { display: flex; gap: 16px; padding: 10px 0; border-top: 1px solid var(--border); }
+.result-status { flex: none; font-weight: 700; }
+.result-status.ok { color: var(--success); }
+.result-status.bad { color: var(--danger); }
+
+/* ---------- Admin-Bereich ---------- */
+.admin-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.tab {
+  min-height: 44px; padding: 0 16px; border-radius: 999px; white-space: nowrap;
+  border: 1px solid var(--border); background: var(--surface); font-size: 16px; font-weight: 600;
+}
+.tab.active { background: var(--text); border-color: var(--text); color: var(--background); }
+.list {
+  margin: 0; padding: 0; list-style: none; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.list-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 60px; padding: 10px 14px; border-top: 1px solid var(--border); }
+.list-row:first-child { border-top: none; }
+.empty-state { padding: 28px; text-align: center; color: var(--text-muted); background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); }
+.type-card { margin-bottom: 16px; padding: 18px; }
+.type-card .list { margin-top: 12px; }
+.type-card .list-row { flex-wrap: nowrap; min-height: 52px; padding: 6px 10px 6px 4px; background: var(--surface); }
+.type-card .hint { margin: 8px 0 0; }
+.add-item-form { display: flex; gap: 8px; margin-top: 12px; }
+.add-item-form input { flex: 1; }
+
+/* Griff zum Sortieren der Prüfpunkte */
+.drag-handle {
+  flex: none; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; font-size: 22px; color: var(--text-muted); cursor: grab;
+  touch-action: none; -webkit-user-select: none; user-select: none; /* Ziehen statt Scrollen */
+}
+.list-row.dragging {
+  position: relative; z-index: 5; border-radius: 10px;
+  outline: 2px solid var(--primary); box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+.list-row.dragging .drag-handle { cursor: grabbing; color: var(--primary); }
+
+/* ---------- Dialog ---------- */
+.dialog-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: rgba(0, 0, 0, .45);
+}
+.dialog {
+  width: 100%; max-width: 500px; max-height: 90vh; max-height: 90dvh; overflow: auto;
+  padding: 24px; border-radius: 18px; background: var(--surface);
+}
+.dialog-intro { margin-top: 8px; }
+.dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.dialog-delete { margin-right: auto; }
+
+/* ---------- Kurzmeldung unten ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 100px); z-index: 200;
+  max-width: calc(100vw - 40px); padding: 12px 18px; border-radius: 12px;
+  background: var(--text); color: var(--background); font-weight: 600;
+  transform: translateX(-50%); opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.toast.visible { opacity: 1; }
+.toast.error { background: var(--danger); color: var(--on-status-color); }
+
+/* ---------- Schmale Bildschirme (iPad im Split View) ---------- */
+@media (max-width: 600px) {
+  :root { --page-padding: 16px; }
+  .card { padding: 18px; }
+  .choice-buttons { width: 100%; }
+  .choice-button { flex: 1; min-width: 0; }
+  .checklist-footer { flex-wrap: wrap; }
+  .checklist-footer .progress { flex-basis: 100%; }
+  .checklist-footer .button { flex: 1; }
+  main.with-footer { padding-bottom: calc(env(safe-area-inset-bottom) + 160px); }
+}
